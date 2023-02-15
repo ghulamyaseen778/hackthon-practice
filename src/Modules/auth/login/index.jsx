@@ -1,0 +1,162 @@
+import { View, Text, TextInput, Pressable,SafeAreaView,ScrollView } from 'react-native'
+import React,{useState} from 'react'
+import InputText from '../../../Components/Global/Input'
+import Button from '../../../Components/Global/Button'
+import axios from 'axios'
+import {API_URL} from "@env"
+
+const Login = ({navigation}) => {
+  const [Email,setEmail] = useState("")
+  const [Password,setPassword] = useState("")
+  const LogInHandler = async () => {
+    await axios.post(`${API_URL}/login`,{
+      email:Email,
+      password:Password
+    })
+    .then(res =>{
+      console.log(res.data.data)
+      setEmail('')
+      setPassword('')
+      navigation.navigate("Signup")
+    })
+    .catch(err => {
+      Alert(err.message)
+    })
+    // console.log(Email,Password)
+  }
+  return (
+    <ScrollView
+    style={{
+      height:"100%"
+    }}
+    >
+      <View
+        style={{
+          backgroundColor:"#803AEE",
+          height:100,
+          width:"100%",
+          borderBottomLeftRadius:30,
+          borderBottomRightRadius:30,
+        }}
+      >
+        <Text
+        style={{
+          color:"white",
+          fontSize:60,
+          fontWeight:800,
+          marginTop:2,
+          textAlign:"center",
+        }}
+        >
+          Taxi App
+        </Text>
+      </View>
+      <View>
+       <Text
+       style={{
+        fontSize:30,
+        fontWeight:700,
+        paddingHorizontal:20,
+        marginTop:20,
+        fontFamily:"Verdana"
+      }}
+       >
+       Welcome Back To 
+       </Text>
+       <Text
+       style={{
+        fontSize:40,
+        color:"#927eaf",
+        fontWeight:700,
+        paddingHorizontal:20,
+        fontFamily:"Verdana"
+       }}
+       >
+       Taxi App
+       </Text>
+      </View>
+      <View>
+        <Text
+        style={{
+          paddingLeft:20,
+          color:"black",
+          marginTop:10,
+          marginRight:20
+        }}
+        >
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est molestiae, voluptates aspernatur dolor tenetur illo repudiandae in delectus magnam nobis?
+        </Text>
+      </View>
+      <SafeAreaView
+      style={{
+        marginTop:20,
+      }}
+      >
+        <InputText
+        placeholder="Enter Email Address"
+        type="email-address"
+        dataChangeFunc={(e)=>setEmail(e)}
+        value={Email}
+        />
+        <InputText
+        placeholder="Enter Password"
+        entry={true}
+        dataChangeFunc={(e)=>setPassword(e)}
+        value={Password}
+        />
+        <Text 
+        style={{
+          color:"blue",
+          textDecorationLine:"underline",
+        marginLeft:20,
+        marginTop:2
+        }}
+        >
+          Forgot Password
+        </Text>
+      </SafeAreaView>
+      <View
+      style={{
+        marginTop:20
+      }}
+      >
+        <Button
+        text="Login"
+        func={LogInHandler}
+        />
+      </View>
+      <View
+      style={{
+        marginTop:5
+      }}
+      >
+        <Pressable>
+        <Text
+        style={{
+          fontSize:16,
+          textAlign:"center",
+        }}
+        >
+        You have't any account
+        <Pressable
+        onPress={()=>navigation.navigate("Signup")}
+        >
+        <Text
+        style={{
+          color:"blue",
+          textDecorationLine:"underline",
+          fontWeight:600,
+          marginLeft:10
+        }}
+        >
+          SignUp
+        </Text>
+        </Pressable>
+          </Text> 
+        </Pressable>
+      </View>
+    </ScrollView>
+  )
+}
+
+export default Login
