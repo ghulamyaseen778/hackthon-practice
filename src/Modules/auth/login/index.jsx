@@ -1,8 +1,9 @@
-import { View, Text, TextInput, Pressable,SafeAreaView,ScrollView } from 'react-native'
+import { View, Text, TextInput, Pressable,SafeAreaView,ScrollView, Alert } from 'react-native'
 import React,{useState} from 'react'
 import InputText from '../../../Components/Global/Input'
 import Button from '../../../Components/Global/Button'
 import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import {API_URL} from "@env"
 
 const Login = ({navigation}) => {
@@ -15,12 +16,13 @@ const Login = ({navigation}) => {
     })
     .then(res =>{
       console.log(res.data.data)
+      AsyncStorage.setItem("user_hackthon",res.data.data.token)
       setEmail('')
       setPassword('')
-      navigation.navigate("Signup")
+      navigation.navigate("User-Profile")
     })
     .catch(err => {
-      Alert(err.message)
+      Alert.alert("Something went wrong please try again")
     })
     // console.log(Email,Password)
   }
