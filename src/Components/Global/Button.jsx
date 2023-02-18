@@ -15,7 +15,7 @@ const Button = ({text,func}) => {
       style={{
         width:"100%",
         color:"white",
-        backgroundColor:"#803AEE",
+        backgroundColor:"#4FA4F4",
         fontSize:25,
         fontWeight:700,
         textAlign:"center",

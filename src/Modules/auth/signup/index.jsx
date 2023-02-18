@@ -1,8 +1,9 @@
-import { View, Text, TextInput, Pressable,SafeAreaView,ScrollView } from 'react-native'
-import React,{useState} from 'react'
+import { View, Text, TextInput, Pressable,SafeAreaView,ScrollView,Alert } from 'react-native'
+import React,{useState,useEffect} from 'react'
 import InputText from '../../../Components/Global/Input'
 import Button from '../../../Components/Global/Button'
 import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import {API_URL} from "@env"
 
 const SignUp = ({navigation}) => {
@@ -10,6 +11,18 @@ const SignUp = ({navigation}) => {
   const [Password,setPassword] = useState("")
   const [MobileNo,setMobileNo] = useState("")
   const [UserName,setUserName] = useState("")
+  useEffect(()=>{
+    const getData = async () => {
+      await axios.get(`${API_URL}/token/${await AsyncStorage.getItem("user_hackthon")}`)
+      .then(res=>{
+        navigation.navigate("LayOut")
+      })
+      .catch(err =>{
+      })
+       }
+       getData()
+  },[])
+
   const SignUpHandler = async () => {
     await axios.post(`${API_URL}/signup`,{
       email:Email,
@@ -17,28 +30,29 @@ const SignUp = ({navigation}) => {
       user_name:UserName,
       mobile_no:MobileNo,
     })
-    .then(res =>{
+    .then(async(res) =>{
       console.log(res.data.data)
+    await  AsyncStorage.setItem("user_hackthon",res.data.data.token)
       setEmail('')
       setPassword('')
       setMobileNo('')
       setUserName('')
-      navigation.navigate("Login")
+      navigation.navigate("LayOut")
     })
     .catch(err => {
-      Alert(err.message)
+      Alert.alert("Something went wrong please try again")
     })
-    // console.log(Email,Password)
   }
   return (
     <ScrollView
     style={{
-      height:"100%"
+      height:"100%",
+      backgroundColor:"#F0F5FB"
     }}
     >
       <View
         style={{
-          backgroundColor:"#803AEE",
+          backgroundColor:"#4FA4F4",
           height:100,
           width:"100%",
           borderBottomLeftRadius:30,
@@ -64,7 +78,8 @@ const SignUp = ({navigation}) => {
         fontWeight:700,
         paddingHorizontal:20,
         marginTop:20,
-        fontFamily:"Verdana"
+        fontFamily:"Verdana",
+        color:"#4FA4F4"
       }}
        >
        SignUp
