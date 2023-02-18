@@ -15,7 +15,7 @@ const SignUp = ({navigation}) => {
     const getData = async () => {
       await axios.get(`${API_URL}/token/${await AsyncStorage.getItem("user_hackthon")}`)
       .then(res=>{
-        navigation.navigate("User-Profile")
+        navigation.navigate("LayOut")
       })
       .catch(err =>{
       })
@@ -37,7 +37,7 @@ const SignUp = ({navigation}) => {
       setPassword('')
       setMobileNo('')
       setUserName('')
-      navigation.navigate("User-Profile")
+      navigation.navigate("LayOut")
     })
     .catch(err => {
       Alert.alert("Something went wrong please try again")
@@ -46,12 +46,13 @@ const SignUp = ({navigation}) => {
   return (
     <ScrollView
     style={{
-      height:"100%"
+      height:"100%",
+      backgroundColor:"#F0F5FB"
     }}
     >
       <View
         style={{
-          backgroundColor:"#803AEE",
+          backgroundColor:"#4FA4F4",
           height:100,
           width:"100%",
           borderBottomLeftRadius:30,
@@ -77,7 +78,8 @@ const SignUp = ({navigation}) => {
         fontWeight:700,
         paddingHorizontal:20,
         marginTop:20,
-        fontFamily:"Verdana"
+        fontFamily:"Verdana",
+        color:"#4FA4F4"
       }}
        >
        SignUp

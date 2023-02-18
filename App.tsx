@@ -1,10 +1,11 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignUp from './src/Modules/auth/signup';
 import Login from './src/Modules/auth/login';
-import Profile from './src/Modules/profile';
+import LayOut from './Layout';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -24,7 +25,7 @@ const App = () => {
           headerShown:false
         }}
         />
-        <Stack.Screen name="User-Profile" component={Profile}
+        <Stack.Screen name="LayOut" component={LayOut}
         options={{
           headerShown:false
         }}

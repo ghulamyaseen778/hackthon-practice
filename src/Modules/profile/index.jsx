@@ -14,7 +14,9 @@ const Profile = ({navigation}) => {
     const getData = async () => {
    await axios.get(`${API_URL}/token/${await AsyncStorage.getItem("user_hackthon")}`)
    .then(res=>{
-    setIsLoad(false)
+    setInterval(()=>{
+      setIsLoad(false)
+    },3000)
    })
    .catch(err =>{
     navigation.navigate("Login")
@@ -55,18 +57,23 @@ const Profile = ({navigation}) => {
     <View
       style={{
         height: "100%",
-        justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor:"#F0F5FB",
+        marginTop:20
       }}
     >
-      <LottieView source={require("../../assets/Loader.json")} autoPlay loop/>
-      {/* <View
+      {
+        Isload?
+        <LottieView source={require("../../assets/Loader.json")} autoPlay loop/>
+        :
+       <View
       style={{
         width: "90%",
-        backgroundColor:"#803AEE",
-        height:150,
+        backgroundColor:"#4FA4F4",
+        height:200,
         borderRadius:20,
-        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
       }}
       >
       <TouchableOpacity
@@ -74,9 +81,9 @@ const Profile = ({navigation}) => {
       >
         <Image
           style={{
-            width: 100,
-            height: 100,
-            borderRadius: 50,
+            width: 80,
+            height: 80,
+            borderRadius: 40,
             borderWidth: 2,
             borderColor: "lightgray",
           }}
@@ -90,19 +97,43 @@ const Profile = ({navigation}) => {
           }}
         />
       </TouchableOpacity>
-      <View>
+      <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop:10
+      }}
+      >
         <Text
         style={{
-          color: "white",
+          color: "#F0F5FB",
           fontWeight: "bold",
           fontSize:20
         }}
         >
           Ghulam Yaseen
         </Text>
+        <Text
+        style={{
+          color: "#F0F5FB",
+          fontWeight: "bold",
+          fontSize:15
+        }}
+        >
+          muhammadyaseen3294@gmail.com
+        </Text>
+        <Text
+        style={{
+          color: "#F0F5FB",
+          fontWeight: "bold",
+          fontSize:15
+        }}
+        >
+          03360839778
+        </Text>
       </View>
-      </View> */}
-
+      </View> 
+    }
     </View>
   )
 }
