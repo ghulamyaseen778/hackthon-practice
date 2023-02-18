@@ -1,5 +1,5 @@
 import { View, Text, TextInput, Pressable,SafeAreaView,ScrollView, Alert } from 'react-native'
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import InputText from '../../../Components/Global/Input'
 import Button from '../../../Components/Global/Button'
 import axios from 'axios'
@@ -9,12 +9,25 @@ import {API_URL} from "@env"
 const Login = ({navigation}) => {
   const [Email,setEmail] = useState("")
   const [Password,setPassword] = useState("")
+
+  useEffect(()=>{
+    const getData = async () => {
+      await axios.get(`${API_URL}/token/${await AsyncStorage.getItem("user_hackthon")}`)
+      .then(res=>{
+        navigation.navigate("User-Profile")
+      })
+      .catch(err =>{
+      })
+       }
+       getData()
+  },[])
+
   const LogInHandler = async () => {
     await axios.post(`${API_URL}/login`,{
       email:Email,
       password:Password
     })
-    .then(res =>{
+    .then(async(res) =>{
       console.log(res.data.data)
       AsyncStorage.setItem("user_hackthon",res.data.data.token)
       setEmail('')

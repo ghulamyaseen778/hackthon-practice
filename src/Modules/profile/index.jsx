@@ -1,10 +1,27 @@
 import { StyleSheet, Text, View, TouchableOpacity, Button, Image, ToastAndroid, Alert, Modal, Pressable } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
+import LottieView from 'lottie-react-native';
+import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import {API_URL} from "@env"
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   const [imgPath, setImgPath] = useState("")
+  const [Isload, setIsLoad] = useState(true)
 
+  useEffect(()=>{
+    const getData = async () => {
+   await axios.get(`${API_URL}/token/${await AsyncStorage.getItem("user_hackthon")}`)
+   .then(res=>{
+    setIsLoad(false)
+   })
+   .catch(err =>{
+    navigation.navigate("Login")
+   })
+    }
+    getData()
+  },[])
   let options = {
     mediaType: "photo",
     quality: 1,
@@ -42,7 +59,8 @@ const Profile = () => {
         alignItems: 'center',
       }}
     >
-      <View
+      <LottieView source={require("../../assets/Loader.json")} autoPlay loop/>
+      {/* <View
       style={{
         width: "90%",
         backgroundColor:"#803AEE",
@@ -83,7 +101,7 @@ const Profile = () => {
           Ghulam Yaseen
         </Text>
       </View>
-      </View>
+      </View> */}
 
     </View>
   )

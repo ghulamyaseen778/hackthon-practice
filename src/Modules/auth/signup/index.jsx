@@ -1,5 +1,5 @@
 import { View, Text, TextInput, Pressable,SafeAreaView,ScrollView,Alert } from 'react-native'
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import InputText from '../../../Components/Global/Input'
 import Button from '../../../Components/Global/Button'
 import axios from 'axios'
@@ -11,6 +11,18 @@ const SignUp = ({navigation}) => {
   const [Password,setPassword] = useState("")
   const [MobileNo,setMobileNo] = useState("")
   const [UserName,setUserName] = useState("")
+  useEffect(()=>{
+    const getData = async () => {
+      await axios.get(`${API_URL}/token/${await AsyncStorage.getItem("user_hackthon")}`)
+      .then(res=>{
+        navigation.navigate("User-Profile")
+      })
+      .catch(err =>{
+      })
+       }
+       getData()
+  },[])
+
   const SignUpHandler = async () => {
     await axios.post(`${API_URL}/signup`,{
       email:Email,
@@ -18,9 +30,9 @@ const SignUp = ({navigation}) => {
       user_name:UserName,
       mobile_no:MobileNo,
     })
-    .then(res =>{
+    .then(async(res) =>{
       console.log(res.data.data)
-      AsyncStorage.setItem("user_hackthon",res.data.data.token)
+    await  AsyncStorage.setItem("user_hackthon",res.data.data.token)
       setEmail('')
       setPassword('')
       setMobileNo('')
