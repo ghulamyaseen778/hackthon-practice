@@ -99,8 +99,6 @@ const Profile = ({navigation}) => {
       </TouchableOpacity>
       <View
       style={{
-        justifyContent: "center",
-        alignItems: "center",
         marginTop:10
       }}
       >
@@ -108,10 +106,19 @@ const Profile = ({navigation}) => {
         style={{
           color: "#F0F5FB",
           fontWeight: "bold",
-          fontSize:20
+          fontSize:20,
+          justifyContent:"center",
+          alignItems:"center",
         }}
         >
-          Ghulam Yaseen
+          <Text
+          style={{
+            color:"black",
+          }}
+          >
+            Name:
+          </Text>
+          <Text>Ghulam Yaseen</Text>
         </Text>
         <Text
         style={{
@@ -120,7 +127,14 @@ const Profile = ({navigation}) => {
           fontSize:15
         }}
         >
-          muhammadyaseen3294@gmail.com
+          <Text
+          style={{
+            color:"black",
+          }}
+          >
+            Email:
+          </Text>
+          <Text>muhammadyaseen3294@gmail.com</Text>          
         </Text>
         <Text
         style={{
@@ -129,7 +143,15 @@ const Profile = ({navigation}) => {
           fontSize:15
         }}
         >
-          03360839778
+          <Text
+          style={{
+            color:"black",
+          }}
+          >
+            Mobile No:
+          </Text>
+          <Text>03360839778</Text>
+          
         </Text>
       </View>
       </View> 

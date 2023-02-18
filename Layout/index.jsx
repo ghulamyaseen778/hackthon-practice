@@ -1,19 +1,31 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from '../src/Modules/profile';
-const Stack = createNativeStackNavigator();
+import Icon from 'react-native-vector-icons/Ionicons'
+const Tabs = createBottomTabNavigator();
 
 const LayOut = () => {
   return (
-        <Stack.Navigator initialRouteName='User-Profile'>
-        <Stack.Screen name="User-Profile" component={Profile} 
+        <Tabs.Navigator 
+        initialRouteName='User-Profile'
+        >
+        <Tabs.Screen name="User-Profile" component={Profile} 
         options={{
-          headerShown:false
+          headerShown:false,
+          tabBarIcon:(tabInfo)=>{
+            return(
+              <Icon
+              name="home"
+              size={24}
+              style={tabInfo.focused?{color:"#4FA4F4"}:{}}
+              />
+            )
+          },
         }}
         />
-        </Stack.Navigator>
+        </Tabs.Navigator>
   )
 }
 
