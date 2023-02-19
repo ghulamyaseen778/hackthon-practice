@@ -12,12 +12,10 @@ const Login = ({navigation}) => {
 
   useEffect(()=>{
     const getData = async () => {
-      await axios.get(`${API_URL}/token/${await AsyncStorage.getItem("user_hackthon")}`)
-      .then(res=>{
+      const data =await AsyncStorage.getItem("user_hackthon")
+      if (data){
         navigation.navigate("LayOut")
-      })
-      .catch(err =>{
-      })
+      }
        }
        getData()
   },[])
@@ -29,13 +27,13 @@ const Login = ({navigation}) => {
     })
     .then(async(res) =>{
       console.log(res.data.data)
-      AsyncStorage.setItem("user_hackthon",res.data.data.token)
+      await AsyncStorage.setItem("user_hackthon",res.data.data._id)
       setEmail('')
       setPassword('')
-      navigation.navigate("LayOut")
+     await navigation.navigate("LayOut")
     })
     .catch(err => {
-      Alert.alert("Something went wrong please try again")
+      Alert.alert(err)
     })
     // console.log(Email,Password)
   }

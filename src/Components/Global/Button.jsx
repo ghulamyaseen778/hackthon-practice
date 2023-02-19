@@ -1,4 +1,4 @@
-import { View, Text,Pressable } from 'react-native'
+import { View, Text,Pressable, TouchableOpacity } from 'react-native'
 import React from 'react'
 
 const Button = ({text,func}) => {
@@ -9,9 +9,11 @@ const Button = ({text,func}) => {
     }}
     >
       <Pressable
-      onPress={func}
       >
-      <Text
+     <TouchableOpacity
+     onPress={func}
+     >
+     <Text
       style={{
         width:"100%",
         color:"white",
@@ -25,6 +27,7 @@ const Button = ({text,func}) => {
       >
         {text}
         </Text>
+     </TouchableOpacity>
       </Pressable>
     </View>
   )
