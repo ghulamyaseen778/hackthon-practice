@@ -9,11 +9,14 @@ import {API_URL} from "@env"
 const Profile = ({navigation}) => {
   const [imgPath, setImgPath] = useState("")
   const [Isload, setIsLoad] = useState(true)
+  const [data, setData] = useState("")
 
   useEffect(()=>{
     const getData = async () => {
    await axios.get(`${API_URL}/token/${await AsyncStorage.getItem("user_hackthon")}`)
    .then(res=>{
+    setData(res.data)
+    console.log(res.data,"win")
     setInterval(()=>{
       setIsLoad(false)
     },3000)
@@ -70,7 +73,7 @@ const Profile = ({navigation}) => {
       style={{
         width: "90%",
         backgroundColor:"#4FA4F4",
-        height:200,
+        height:250,
         borderRadius:20,
         alignItems: "center",
         justifyContent: "center",
@@ -113,12 +116,12 @@ const Profile = ({navigation}) => {
         >
           <Text
           style={{
-            color:"black",
+            color:"#F0F5FB",
           }}
           >
             Name:
           </Text>
-          <Text>Ghulam Yaseen</Text>
+          <Text>{data.user_name}</Text>
         </Text>
         <Text
         style={{
@@ -129,12 +132,12 @@ const Profile = ({navigation}) => {
         >
           <Text
           style={{
-            color:"black",
+            color:"#F0F5FB",
           }}
           >
             Email:
           </Text>
-          <Text>muhammadyaseen3294@gmail.com</Text>          
+          <Text>{data.email}</Text>          
         </Text>
         <Text
         style={{
@@ -145,15 +148,40 @@ const Profile = ({navigation}) => {
         >
           <Text
           style={{
-            color:"black",
+            color:"#F0F5FB",
           }}
           >
             Mobile No:
           </Text>
-          <Text>03360839778</Text>
+          <Text>{data.mobile_no}</Text>
           
         </Text>
       </View>
+      <TouchableOpacity
+      style={{
+        width:"90%",
+      }}
+      onPress={()=>{AsyncStorage.removeItem("user_hackthon")
+      setData('')
+        navigation.navigate('Login')
+
+      }}
+      >
+      <Text
+      style={{
+        color:"white",
+        backgroundColor:"red",
+        fontSize:25,
+        fontWeight:700,
+        textAlign:"center",
+        paddingVertical:10,
+        borderRadius:20,
+        marginTop:10
+      }}
+      >
+        Logout
+      </Text>
+      </TouchableOpacity>
       </View> 
     }
     </View>
