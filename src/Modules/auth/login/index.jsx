@@ -62,7 +62,7 @@ const Login = ({navigation}) => {
           textAlign:"center",
         }}
         >
-          Taxi App
+          Squip
         </Text>
       </View>
       <View>
@@ -86,7 +86,7 @@ const Login = ({navigation}) => {
         fontFamily:"Verdana"
        }}
        >
-       Taxi App
+       Squip
        </Text>
       </View>
       <View>
